@@ -38,9 +38,6 @@ PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/ramdisk/res,root/res)
 
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/modules,system/lib/modules)
-
-PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/modules,recovery/root/lib/modules)
 
 PRODUCT_COPY_FILES += \
@@ -180,8 +177,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.usbdevice.PID=fffe \
     ro.product.mtpdevice.PID=4e41 \
     ro.product.ptpdevice.PID=4e43 \
-    ro.usb.descriptor="ainol Novo10 Hero,3.00" \
-    ro.usbdevice.volumelabel="Novo10 Hero" \
+    ro.usb.descriptor=ainol Novo10 Hero,3.00 \
+    ro.usbdevice.volumelabel=Novo10 Hero \
     ro.serialno=4512482adf0feeee \
     ro.config.quickboot=0 \
     ro.im.keysounddefenable=true \
@@ -212,7 +209,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.camerahal.imageres1=QVGA,VGA \
     ro.camerahal.prevresdft1=VGA \
     ro.camerahal.imageresdft1=VGA \
-    ro.camerahal.fpsdft1=30
+    ro.camerahal.fpsdft1=30 
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.selinux=0 \
+    persist.sys.root_access=3
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
