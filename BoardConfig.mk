@@ -77,6 +77,7 @@ BOARD_CACHE_DEVICE := /dev/block/acte
 BOARD_CACHE_FILESYSTEM := ext4
 
 TARGET_PREBUILT_KERNEL := device/actions/gs702a/kernel
+TARGET_KERNEL_SELINUX_CONFIG :=
 DEVICE_RESOLUTION := 1280x800
 
 #Releasetools
@@ -134,12 +135,12 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 BOARD_HAVE_BLUETOOTH := false
 
-BOARD_SEPOLICY_DIR := \
-	devices/actions/gs702a/sepolicy
-
-BOARD_SEPOLICY_UNION := \
-	file_contexts \
-	file.te \
-	device.te \
-	domain.te \
-	pfmnceserver.te
+#BOARD_SEPOLICY_DIR := \
+#	devices/actions/gs702a/sepolicy
+#
+#BOARD_SEPOLICY_UNION := \
+#	file_contexts \
+#	file.te \
+#	device.te \
+#	domain.te \
+#	pfmnceserver.te
