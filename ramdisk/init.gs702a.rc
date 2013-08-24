@@ -1,6 +1,6 @@
 
 import init.mt6620.rc
-import init.eth0.rc
+
 
 on early-init
     # fixme: disable hotplug by now
@@ -12,28 +12,28 @@ on early-init
     # use legacy virtual memory layout for compatibility
     write /proc/sys/vm/legacy_va_layout 1
 
-    export EXTERNAL_STORAGE /storage/sdcard0
-    export SECONDARY_STORAGE /storage/sdcard1
-    mkdir /storage/sdcard0 0000 system system
-    mkdir /storage/sdcard1 0000 system system
-    mkdir /storage/usbdisk 0000 system system
+    export EXTERNAL_STORAGE /mnt/sdcard
+    export SECONDARY_STORAGE /mnt/sd-ext
+    export ASEC_STORAGE /mnt/sdcard
+    export FLASH_STORAGE /mnt/sdcard
+    export TFCARD_STORAGE /mnt/sd-ext
+    export UHOST_STORAGE /mnt/uhost
+    export MEDIA_STORAGE /mnt/media
+    mkdir /mnt/sdcard 0000 system system
+    mkdir /mnt/sd-ext 0000 system system
+    mkdir /mnt/uhost 0000 system system
     mkdir /mnt/media 0755 system system
 
-    # for backwards compatibility
-    symlink /storage/sdcard0 /mnt/sdcard
-    symlink /storage/sdcard0 /sdcard
-    symlink /storage/sdcard1 /sd-ext
-    symlink /storage/sdcard1 /mnt/sd-ext
-    symlink /storage/usbdisk /udisk
-    symlink /storage/usbdisk /mnt/udisk
-    #export ASEC_STORAGE /mnt/sdcard
-    #export FLASH_STORAGE /mnt/sdcard
-    #export TFCARD_STORAGE /mnt/sd-ext
-    #export UHOST_STORAGE /mnt/uhost
-    export MEDIA_STORAGE /mnt/media
+    # for forwards compatibility
+    symlink /mnt/sdcard /storage/sdcard0
+    symlink /mnt/sd-ext /storage/sdcard1
+    symlink /mnt/uhost /storage/usbdisk
 
     # mount disks
     mkdir /misc
+    # insmod flash driver
+    insmod /lib/modules/blk1drv.ko
+    insmod /lib/modules/blk2drv.ko
     wait /dev/block/actb
     mount vfat /dev/block/actb /misc ro wait noatime nodiratime umask=0022
     # display
@@ -50,16 +50,11 @@ on fs
     # these partition flashed on the device. Failure to mount any partition in fstab file
     # results in failure to launch late-start class.
     mount vfat /dev/block/actg /mnt/media ro wait noatime nodiratime umask=0022 utf8
-    #mount vfat /dev/block/acth /vendor/app ro wait noatime nodiratime umask=0022
-    #mount vfat /dev/block/actf /data_bak rw wait nosuid 
+    mount vfat /dev/block/acth /vendor/app ro wait noatime nodiratime umask=0022
+    mount vfat /dev/block/actf /data_bak rw wait nosuid 
     symlink /vendor/app/lib /vendor/lib
     
     mount debugfs none /sys/kernel/debug
-
-on fs_selinux
-    mount_all fstab.gs702a
-    # SEPolicy Reload check should be done after mount data partition
-    setprop selinux.reload_policy 1
 
 on post-fs
     # pmic
@@ -147,14 +142,15 @@ on boot
     chmod 0666 /data/data/ant_status
 
     #cancel wipe-data after abnormal shutoff
-	setprop persist.sys.shutok init
+    setprop persist.sys.shutok init
+    setprop persist.sys.root 1
 
 on boot
     write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
 
 on init
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar
 
 on init
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
