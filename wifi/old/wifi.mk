@@ -1,0 +1,35 @@
+
+ifeq ($(BOARD_WLAN_DEVICE),rtl8188eu)
+WIFI_DRIVER_MODULE_NAME := wlan
+WIFI_DRIVER_MODULE_PATH := /misc/modules/wlan.ko
+
+WIFI_DRIVER_FW_PATH_STA	:= none
+WIFI_DRIVER_MODULE_ARG	:= "ifname=wlan0 if2name=p2p0"
+
+WPA_SUPPLICANT_VERSION := VER_0_8_X_RTL
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_rtl
+BOARD_HOSTAPD_DRIVER := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_rtl
+
+#BOARD_WLAN_VENDOR := REALTEK
+BOARD_WIFI_VENDOR := realtek
+
+TARGET_CUSTOM_WIFI := hardware/act/gs702a/wlan/rtl8188eu/libhardware_legacy/wifi/wifi_realtek.c
+endif
+
+ifeq ($(BOARD_WLAN_DEVICE),rtl8723as)
+WIFI_DRIVER_MODULE_NAME	:= wlan_8723as_vt
+WIFI_DRIVER_MODULE_PATH	:= /misc/modules/wlan_8723as_vt.ko
+
+WIFI_DRIVER_FW_PATH_STA	:= none
+WIFI_DRIVER_MODULE_ARG	:= "ifname=wlan0 if2name=p2p0"
+
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_rtl
+BOARD_HOSTAPD_DRIVER := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_rtl
+
+TARGET_CUSTOM_WIFI := device/actions/gs702a/wifi/rtl8723/wifi/wifi_realtek.c
+endif
