@@ -163,7 +163,8 @@ PRODUCT_PACKAGES += \
 	gpu_config \
 	game_r2 \
 	game_r3 \
-	libGLESv2_VIVANTE.so
+	libGLESv2_VIVANTE.so \
+	overlay.ATM702X.so
 	
 PRODUCT_PACKAGES += \
 	libsub \

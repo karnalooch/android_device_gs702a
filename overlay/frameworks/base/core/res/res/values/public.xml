@@ -26,5 +26,17 @@
        this.
   -->
   <java-symbol type="string" name="storage_uhost" />
+  <java-symbol type="string" name="uh_media_checking_notification_title" />
+  <java-symbol type="string" name="uh_media_checking_notification_message" />
+  <java-symbol type="string" name="uh_media_nofs_notification_title" />
+  <java-symbol type="string" name="uh_media_nofs_notification_message" />
+  <java-symbol type="string" name="uh_media_unmountable_notification_title" />
+  <java-symbol type="string" name="uh_media_unmountable_notification_message" />
+  <java-symbol type="string" name="uh_media_badremoval_notification_title" />
+  <java-symbol type="string" name="uh_media_badremoval_notification_message" />
+  <java-symbol type="string" name="uh_media_safe_unmount_notification_title" />
+  <java-symbol type="string" name="uh_media_safe_unmount_notification_message" />
+  <java-symbol type="string" name="uh_media_nomedia_notification_title" />
+  <java-symbol type="string" name="uh_media_nomedia_notification_message" />
 
 </resources>

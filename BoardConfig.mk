@@ -16,7 +16,7 @@
 
 # Toolchain
 TARGET_GCC_VERSION := 4.7
-TARGET_TOOLS_PREFIX :=
+TARGET_GCC_VERSION_EXP := 4.7
 TARGET_GLOBAL_CFLAGS += -O3
 TARGET_GLOBAL_CPPFLAGS += -O3
 
@@ -30,7 +30,6 @@ TARGET_BOOTLOADER_BOARD_NAME := full_gs702a
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RECOVERY := true
 TARGET_NO_RADIOIMAGE := true
-TARGET_HARDWARE_3D :=
 TARGET_PROVIDES_INIT_RC := true
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -51,7 +50,7 @@ BOARD_KERNEL_CMDLINE := console=ttyS5,115200 earlyprintk
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_PAGE_SIZE := 2048
 TARGET_PREBUILT_KERNEL := device/actions/gs702a/configs/kernel
-TARGET_KERNEL_CONFIG := leopard_evb_defconfig
+#TARGET_KERNEL_CONFIG := leopard_evb_defconfig
 #KERNEL_DIR := kernel/gs702a
 
 # Filesystem
@@ -71,7 +70,7 @@ ENABLE_WEBGL := true
 BOARD_USE_SKIA_LCDTEXT := true
 BOARD_USES_HWCOMPOSER := true
 USE_CAMERA_STUB := true
-DEVICE_RESOLUTION := 1280x800
+DEVICE_RESOLUTION := 800x1280
 TARGET_BOARD_INFO_FILE := device/actions/gs702a/board-info.txt
 
 # Overlay
@@ -118,7 +117,7 @@ TARGET_CUSTOM_WIFI := hardware/act/gs702a/wlan/rtl8188eu/libhardware_legacy/wifi
 
 #-include device/actions/gs802a/wifi/wifi.mk
 
-# 4.3 defs
+# Android 4.3 defs
 COMMON_GLOBAL_CFLAGS += -DACT_HARDWARE -DCHARGER_DISABLE_INIT_BLANK -DACT_GRLC -DACT_AUDIO
 
 # Device select
