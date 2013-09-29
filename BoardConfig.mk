@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+LOCAL_PATH := device/actions/gs702a
 # Toolchain
 TARGET_GCC_VERSION := 4.7
 TARGET_GCC_VERSION_EXP := 4.7
@@ -50,7 +51,8 @@ BOARD_KERNEL_CMDLINE := console=ttyS5,115200 earlyprintk
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_PAGE_SIZE := 2048
 TARGET_PREBUILT_KERNEL := device/actions/gs702a/configs/kernel
-#TARGET_KERNEL_CONFIG := leopard_evb_defconfig
+TARGET_KERNEL_SOURCE := kernel/actions/gs702a
+TARGET_KERNEL_CONFIG := leopard_evb_defconfig
 #KERNEL_DIR := kernel/gs702a
 
 # Filesystem
@@ -86,6 +88,7 @@ TARGET_RECOVERY_FSTAB := device/actions/gs702a/rootdir/etc/fstab.gs702a
 #TARGET_PREBUILT_RECOVERY_KERNEL := device/actions/gs702a/recovery-kernel
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_USERIMAGES_USE_EXT4 := true
+RECOVERY_FSTAB_VERSION := 2
 
 # Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true

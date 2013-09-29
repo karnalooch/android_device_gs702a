@@ -21,6 +21,9 @@ PRODUCT_COPY_FILES := \
 	$(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/etc/dev,root/dev)
 
 PRODUCT_COPY_FILES := \
+	$(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/usb_modeswitch.d,system/etc/usb_modeswitch.d)
+
+PRODUCT_COPY_FILES := \
 	$(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/etc/lib,root/lib)
 
 PRODUCT_COPY_FILES := \

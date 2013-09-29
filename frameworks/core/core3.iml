@@ -7,9 +7,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="sdk_v18_intermediates" level="project" />
+    <orderEntry type="library" name="android14" level="project" />
+    <orderEntry type="library" name="android9" level="project" />
     <orderEntry type="library" name="sdk_v16_intermediates" level="project" />
     <orderEntry type="library" name="classes-jarjar11" level="project" />
     <orderEntry type="library" name="android5" level="project" />
+    <orderEntry type="library" name="18" level="project" />
     <orderEntry type="library" name="17" level="project" />
     <orderEntry type="library" name="16" level="project" />
     <orderEntry type="library" name="sdk_v8_intermediates" level="project" />
