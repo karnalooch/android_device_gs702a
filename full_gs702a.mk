@@ -13,9 +13,9 @@
 # limitations under the License.
 
 # Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-$(call inherit-product, device/actions/gs702a/hero2.mk)
-$(call inherit-product, device/actions/gs702a/usb_modeswitch.d/usb_modeswitch.mk)
+$(call inherit-product, build/target/product/full_base.mk)
+$(call inherit-product, device/actions/gs702a/gs702a.mk)
+$(call inherit-product, device/actions/gs702a/carbon.mk)
 $(call inherit-product-if-exists, device/actions/gs702a/prebuilt/codec/actcodec.mk)	
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
