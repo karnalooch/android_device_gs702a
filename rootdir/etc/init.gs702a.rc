@@ -6,26 +6,13 @@ import init.eth0.rc
 
 on early-init
     # fixme: disable hotplug by now
-    write /sys/devices/system/cpu/autoplug/lock 1
+    # write /sys/devices/system/cpu/autoplug/lock 1
 
     # fixme: avoid suspend by now
-    #write /sys/power/wake_lock 1
+    # write /sys/power/wake_lock 1
 
     # use legacy virtual memory layout for compatibility
     write /proc/sys/vm/legacy_va_layout 1
-
-    export EXTERNAL_STORAGE /mnt/sdcard
-    export ASEC_STORAGE /mnt/sdcard
-    export FLASH_STORAGE /mnt/sdcard
-    export TFCARD_STORAGE /mnt/sd-ext
-    export UHOST_STORAGE /mnt/uhost
-    export MEDIA_STORAGE /mnt/media
-    mkdir /mnt/sdcard 0000 system system
-    mkdir /mnt/sd-ext 0000 system system
-    mkdir /mnt/uhost 0000 system system
-    mkdir /mnt/media 0755 system system
-    # for backwards compatibility
-    symlink /mnt/sdcard /sdcard
 
     # insmod flash driver
     insmod /lib/modules/blk1drv.ko
@@ -40,7 +27,26 @@ on early-init
     insmod /misc/modules/atv5202_lcd.ko
     insmod /misc/modules/atv5202_fb.ko
 
-on fs
+on init
+    mkdir /storage 0550 system sdcard_r
+    mkdir /storage/sdcard0 0000 root root
+    mkdir /storage/sdcard1 0000 root root
+    mkdir /storage/usbdisk0 0000 root root
+
+    export EXTERNAL_STORAGE /storage/sdcard0
+    export FLASH_STORAGE /storage/sdcard0
+    export TFCARD_STORAGE /storage/sdcard1
+    export UHOST_STORAGE /storage/usbdisk0
+
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
+    symlink /storage/sdcard1 /sd-ext
+    symlink /storage/sdcard1 /mnt/sd-ext
+    symlink /storage/usbdisk0 /usbdisk0
+    symlink /storage/usbdisk0 /mnt/uhost
+
+
+on early-fs
 
     # mount disks	
     mount_all /fstab.gs702a
@@ -123,7 +129,7 @@ on boot
     chown system system /sys/devices/system/cpu/cpu3/online
     chmod 0660 /sys/devices/system/cpu/cpu3/online
 
-    # add by mg
+    # add by bmourit
     write /data/data/ant_status on
     chmod 0666 /data/data/ant_status
 
@@ -131,12 +137,8 @@ on boot
 	setprop persist.sys.shutok init
     setprop persist.sys.root 1
 
-on init
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar
-
 # Allow system service to execute quickboot cmd.
     chown system system /quickboot.sh
-
 
 # update system time from rtc
 service hwclock_update /system/xbin/busybox hwclock -s

@@ -25,6 +25,6 @@ LOCAL_SRC_FILES := hwcomposer_de.cpp
 LOCAL_MODULE := overlay.$(TARGET_BOARD_PLATFORM)
 LOCAL_CFLAGS := -DLOG_TAG=\"overlay\"
 LOCAL_MODULE_TAGS := optional
-#include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
 
 endif

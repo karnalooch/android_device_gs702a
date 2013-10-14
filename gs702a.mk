@@ -13,12 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/actions/gs702a/configs/kernel
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
+PRODUCT_COPY_FILES += \
+	$(LOCAL_KERNEL):kernel \
 
 PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/etc/dev,root/dev)
@@ -27,8 +23,16 @@ PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/etc/lib,root/lib)
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_KERNEL):kernel \
-    device/actions/gs702a/configs/apns-conf.xml:system/etc/apns-conf.xml \
+    device/actions/gs702a/rootdir/etc/apns-conf.xml:system/etc/apns-conf.xml \
+	device/actions/gs702a/rootdir/etc/init.gs702a.rc:root/init.gs702a.rc \
+	device/actions/gs702a/rootdir/etc/init.eth0.rc:root/init.eth0.rc \
+	device/actions/gs702a/rootdir/etc/init.gs702a.sdboot.rc:root/init.gs702a.sdboot.rc \
+	device/actions/gs702a/rootdir/etc/fstab.gs702a:root/fstab.gs702a \
+	device/actions/gs702a/rootdir/etc/fstab.sdboot.gs702a:root/fstab.sdboot.gs702a \
+	device/actions/gs702a/rootdir/etc/init.quickboot.rc:root/init.quickboot.rc \
+	device/actions/gs702a/rootdir/etc/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
+	device/actions/gs702a/rootdir/etc/ueventd.gs702a.rc:root/ueventd.gs702a.rc \
+	device/actions/gs702a/rootdir/etc/fstab.gs702a:system/etc/fstab.gs702a \
 	device/actions/gs702a/configs/ft5x0x_ts.idc:system/usr/idc/ft5x0x_ts.idc \
 	device/actions/gs702a/configs/GT813.idc:system/usr/idc/GT813.idc \
 	device/actions/gs702a/configs/mt395.idc:system/usr/idc/mt395.idc \
@@ -44,10 +48,6 @@ PRODUCT_COPY_FILES += \
 	vendor/carbon/config/permissions/com.carbon.android.xml:/system/etc/permissions/com.carbon.android.xml \
 	vendor/carbon/config/permissions/com.carbon.nfc.enhanced.xml:/system/etc/permissions/com.carbon.nfc.enhanced.xml \
 	vendor/carbon/config/permissions/com.tmobile.software.themes.xml:/system/etc/permissions/com.tmobile.software.themes.xml
-
-# missing permissions
-PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/permissions,/system/etc/permissions)
 
 # audio policy configuration
 PRODUCT_COPY_FILES += \
@@ -67,6 +67,9 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	
 PRODUCT_PROPERTY_OVERRIDES += \
 	hwui.render_dirty_regions=false
+
+PRODUCT_PACKAGES += \
+	com.android.future.usb.accessory
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.product.locale.language=en \
@@ -90,7 +93,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.support.gpswithwifi=1
 
-DEVICE_PACKAGE_OVERLAYS += \
+DEVICE_PACKAGE_OVERLAYS := \
     device/actions/gs702a/overlay
 
 # Ramdisk
@@ -104,31 +107,27 @@ PRODUCT_PACKAGES += \
 	init.modules.rc \
 	init.extra_modules.rc \
 	init.quickboot.rc \
-	ueventd.gs702a.rc \
-	usbmond.sh
-
-PRODUCT_PACKAGES += \
-	e2fsck \
-	carbon
-
-PRODUCT_PACKAGES += \
-	recovery
+	ueventd.gs702a.rc
 
 PRODUCT_PACKAGES += \
 	actions \
 	pfmnceserver \
 	libperformance \
 	libactions_runtime \
+	usbmond \
 	charger \
 	charger_res_images \
 	SpeechRecorder \
 	libsrec_jni
 
 PRODUCT_PACKAGES += \
+	updater \
+	e2fsck \
 	ping \
 	netperf \
 	netserver \
 	tcpdump \
+	wpa_cli \
 	strace
 
 PRODUCT_PACKAGES += \
@@ -150,7 +149,9 @@ PRODUCT_PACKAGES += \
 	libstagefright_froyo.so \
 	libstagefright_honeycomb.so \
 	libysshared.so \
+	libffmpeg_wrapper \
 	libPopupVideo \
+	libvinit \
 	performancepolicy \
 	ActSensorCalib
 
@@ -166,8 +167,7 @@ PRODUCT_PACKAGES += \
 	gpu_config \
 	game_r2 \
 	game_r3 \
-	libGLESv2_VIVANTE.so \
-	overlay.ATM702X.so
+	libGLESv2_VIVANTE.so
 	
 PRODUCT_PACKAGES += \
 	libsub \
@@ -263,9 +263,8 @@ PRODUCT_PACKAGES += \
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 $(call inherit-product, build/target/product/full_base.mk)
 
-PRODUCT_NAME := carbon_gs702a
+PRODUCT_NAME := full_gs702a
 PRODUCT_DEVICE := gs702a
-CARBON_DEVICE := gs702a
 
 TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 1280

@@ -13,15 +13,16 @@
 # limitations under the License.
 
 # Inherit from those products. Most specific first.
-$(call inherit-product, build/target/product/full_base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 $(call inherit-product, device/actions/gs702a/gs702a.mk)
-$(call inherit-product, device/actions/gs702a/carbon.mk)
+$(call inherit-product, device/actions/gs702a/wifi.mk)
+$(call inherit-product, device/actions/gs702a/usb_modeswitch.d/usb_modeswitch.mk)
 $(call inherit-product-if-exists, device/actions/gs702a/prebuilt/codec/actcodec.mk)	
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
 # Set variables here to overwrite the inherited values.
-PRODUCT_NAME := carbon_gs702a
+PRODUCT_NAME := full_gs702a
 PRODUCT_DEVICE := gs702a
 PRODUCT_BRAND := Android
 PRODUCT_MODEL := Novo 10 Hero QuadCore
-PRODUCT_MANUFACTURER := Ainol
+PRODUCT_MANUFACTURER := ainol

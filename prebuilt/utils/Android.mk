@@ -21,7 +21,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := ETC
 include $(BUILD_PREBUILT)
 
-#omx/components/audio_decorder
+#omx/components/audio_decoder
 include $(CLEAR_VARS)
 LOCAL_MODULE := libOMX.Action.Audio.Decoder
 LOCAL_SRC_FILES := libOMX.Action.Audio.Decoder.so
@@ -54,7 +54,7 @@ LOCAL_SRC_FILES := libOMX.Action.Image.Decoder.so
 LOCAL_MODULE_STEM := libOMX.Action.Image.Decoder.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
- include $(BUILD_PREBUILT)
+include $(BUILD_PREBUILT)
 
 #omx/components/omx_vce
 include $(CLEAR_VARS)
@@ -155,7 +155,7 @@ include $(BUILD_PREBUILT)
 #endif
 
 #prebuilt libhwc 
-ifneq ($(words $(shell find device/actions/gs702a/hardware/libhwc/libhwc/Android.mk)),1)
+ifneq ($(words $(shell find device/actions/gs702a/hardware/libhwc/Android.mk)),1)
 include $(CLEAR_VARS)
 LOCAL_MODULE := hwcomposer.$(TARGET_BOARD_PLATFORM)
 LOCAL_SRC_FILES := $(LOCAL_MODULE).so
