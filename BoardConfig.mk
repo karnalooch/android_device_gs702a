@@ -31,7 +31,7 @@ TARGET_ARCH_VARIANT_FPU := neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
 
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += device/actions/gs702a/overlay
 
 # Use the non-open-source parts, if they're present
 -include vendor/actions/gs702a/BoardConfigVendor.mk
@@ -39,8 +39,8 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 BOARD_USES_GENERIC_AUDIO := true
 USE_CAMERA_STUB := true
 TARGET_BOOTLOADER_BOARD_NAME := full_gs702a
-TARGET_NO_BOOTLOADER := true
-#TARGET_NO_RECOVERY := true
+TARGET_NO_BOOTLOADER := false
+TARGET_NO_RECOVERY := false
 TARGET_NO_RADIOIMAGE := true
 
 # Kernel
@@ -118,7 +118,7 @@ BOARD_WLAN_DEVICE := rtl8188eu
 
 TARGET_CUSTOM_WIFI := hardware/act/gs702a/wlan/rtl8188eu/libhardware_legacy/wifi/wifi_realtek.c
 
-#-include device/actions/gs802a/wifi/wifi.mk
+#-include device/actions/gs702a/wifi/wifi.mk
 
 # Android 4.3 defs
 COMMON_GLOBAL_CFLAGS += -DACT_HARDWARE -DCHARGER_DISABLE_INIT_BLANK -DACT_GRLC -DACT_AUDIO

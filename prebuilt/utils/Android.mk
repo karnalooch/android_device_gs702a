@@ -5,6 +5,7 @@ LOCAL_MODULE := gpu_config
 LOCAL_SRC_FILES := gpu_config
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -12,6 +13,7 @@ LOCAL_MODULE := game_r3
 LOCAL_SRC_FILES := game_r3
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -19,6 +21,7 @@ LOCAL_MODULE := game_r2
 LOCAL_SRC_FILES := game_r2
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/
 include $(BUILD_PREBUILT)
 
 #omx/components/audio_decoder
@@ -28,6 +31,7 @@ LOCAL_SRC_FILES := libOMX.Action.Audio.Decoder.so
 LOCAL_MODULE_STEM := libOMX.Action.Audio.Decoder.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 
 #omx/components/camera
@@ -37,6 +41,7 @@ LOCAL_SRC_FILES := libOMX.Action.Video.Camera.so
 LOCAL_MODULE_STEM := libOMX.Action.Video.Camera.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -45,6 +50,7 @@ LOCAL_SRC_FILES := libACT_V4L2HAL.so
 LOCAL_MODULE_STEM := libACT_V4L2HAL.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 
 #omx/components/jpeg_decorder
@@ -54,6 +60,7 @@ LOCAL_SRC_FILES := libOMX.Action.Image.Decoder.so
 LOCAL_MODULE_STEM := libOMX.Action.Image.Decoder.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 
 #omx/components/omx_vce
@@ -63,6 +70,7 @@ LOCAL_SRC_FILES := libOMX.Action.Video.Encoder.so
 LOCAL_MODULE_STEM := libOMX.Action.Video.Encoder.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -71,6 +79,7 @@ LOCAL_SRC_FILES := libACT_EncAPI.so
 LOCAL_MODULE_STEM := libACT_EncAPI.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 
 #omx/components/video_decorder
@@ -80,6 +89,7 @@ LOCAL_SRC_FILES := libOMX.Action.Video.Decoder.so
 LOCAL_MODULE_STEM := libOMX.Action.Video.Decoder.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 
 #omx/libstagefreighthw
@@ -89,6 +99,7 @@ LOCAL_SRC_FILES := libstagefrighthw.so
 LOCAL_MODULE_STEM := libstagefrighthw.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 
 #omx/omx_core
@@ -98,6 +109,7 @@ LOCAL_SRC_FILES := libOMX_Core.so
 LOCAL_MODULE_STEM:= libOMX_Core.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 
 #gralloc_HW
@@ -107,6 +119,7 @@ LOCAL_SRC_FILES := gralloc.$(TARGET_BOARD_PLATFORM).so
 LOCAL_MODULE_STEM := gralloc.$(TARGET_BOARD_PLATFORM).so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/hw
 include $(BUILD_PREBUILT)
 
 #omx/base
@@ -123,6 +136,7 @@ LOCAL_MODULE := pfmnceserver
 LOCAL_SRC_FILES := pfmnceserver
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := EXECUTABLES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/bin
 include $(BUILD_PREBUILT)
 
 #utils_prebuilt_target :=
@@ -162,6 +176,7 @@ LOCAL_SRC_FILES := $(LOCAL_MODULE).so
 LOCAL_MODULE_STEM := hwcomposer.$(TARGET_BOARD_PLATFORM).so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/hw
 include $(BUILD_PREBUILT)
 else
 utils_prebuilt_target += $(TARGET_OUT)/lib/hw/hwcomposer.ATM702X.so
@@ -175,6 +190,7 @@ LOCAL_SRC_FILES := $(LOCAL_MODULE).so
 LOCAL_MODULE_STEM:= $(LOCAL_MODULE).so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 include $(BUILD_PREBUILT)
 else
 utils_prebuilt_target += $(TARGET_OUT)/lib/libperformance.so
@@ -189,6 +205,7 @@ LOCAL_SRC_FILES := performancepolicy.apk
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := APPS
 LOCAL_CERTIFICATE := PRESIGNED
+LOCAL_MODULE_PATH := $(TARGET_OUT)/app
 include $(BUILD_PREBUILT)
 else
 utils_prebuilt_target += $(TARGET_OUT)/app/performancepolicy.apk
@@ -203,6 +220,7 @@ LOCAL_SRC_FILES := ActSensorCalib.apk
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS :=APPS
 LOCAL_CERTIFICATE := PRESIGNED
+LOCAL_MODULE_PATH := $(TARGET_OUT)/app
 include $(BUILD_PREBUILT)
 else
 utils_prebuilt_target += $(TARGET_OUT)/app/ActSensorCalib.apk
