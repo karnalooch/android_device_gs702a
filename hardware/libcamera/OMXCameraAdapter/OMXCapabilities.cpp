@@ -37,8 +37,8 @@ namespace android
 // Maintain a separate tag for OMXCameraAdapter logs to isolate issues OMX specific
 #define LOG_TAG "CameraHAL"
 
-#undef TRUE
-#undef FALSE
+#undef TTRUE
+#undef FFALSE
 
 /************************************
  * global constants and variables
@@ -1303,7 +1303,7 @@ status_t OMXCameraAdapter::insertIPPModes(CameraProperties::Properties* params, 
 
     if(caps.bContrastSupported)
     {
-        params->set(CameraProperties::CONTRAST_SUPPORTED, CameraParameters::TRUE);
+        params->set(CameraProperties::CONTRAST_SUPPORTED, CameraParameters::TTRUE);
 		
 		params->set(CameraProperties::SUPPORTED_CONTRAST_MIN, caps.xContrastLevel.nMinVal);
 		params->set(CameraProperties::SUPPORTED_CONTRAST_MAX, caps.xContrastLevel.nMaxVal);
@@ -1312,12 +1312,12 @@ status_t OMXCameraAdapter::insertIPPModes(CameraProperties::Properties* params, 
     }
     else
     {
-        params->set(CameraProperties::CONTRAST_SUPPORTED, CameraParameters::FALSE);
+        params->set(CameraProperties::CONTRAST_SUPPORTED, CameraParameters::FFALSE);
     }
 
     if(caps.bSaturationSupported)
     {
-        params->set(CameraProperties::SATURATION_SUPPORTED, CameraParameters::TRUE);
+        params->set(CameraProperties::SATURATION_SUPPORTED, CameraParameters::TTRUE);
 
 		params->set(CameraProperties::SUPPORTED_SATURATION_MIN, caps.xSaturationLevel.nMinVal);
 		params->set(CameraProperties::SUPPORTED_SATURATION_MAX, caps.xSaturationLevel.nMaxVal);
@@ -1325,12 +1325,12 @@ status_t OMXCameraAdapter::insertIPPModes(CameraProperties::Properties* params, 
     }
     else
     {
-        params->set(CameraProperties::SATURATION_SUPPORTED, CameraParameters::FALSE);
+        params->set(CameraProperties::SATURATION_SUPPORTED, CameraParameters::FFALSE);
     }
 
     if(caps.bBrightnessSupported)
     {
-        params->set(CameraProperties::BRIGHTNESS_SUPPORTED, CameraParameters::TRUE);
+        params->set(CameraProperties::BRIGHTNESS_SUPPORTED, CameraParameters::TTRUE);
 
 		params->set(CameraProperties::SUPPORTED_BRIGHTNESS_MIN, caps.xBrightnessLevel.nMinVal);
 		params->set(CameraProperties::SUPPORTED_BRIGHTNESS_MAX, caps.xBrightnessLevel.nMaxVal);
@@ -1338,13 +1338,13 @@ status_t OMXCameraAdapter::insertIPPModes(CameraProperties::Properties* params, 
     }
     else
     {
-        params->set(CameraProperties::BRIGHTNESS_SUPPORTED, CameraParameters::FALSE);
+        params->set(CameraProperties::BRIGHTNESS_SUPPORTED, CameraParameters::FFALSE);
     }
 
-	params->set(CameraProperties::SHARPNESS_SUPPORTED, CameraParameters::FALSE);
+	params->set(CameraProperties::SHARPNESS_SUPPORTED, CameraParameters::FFALSE);
 
-	params->set(CameraProperties::DENOISE_SUPPORTED, CameraParameters::FALSE);
-	if(strcmp(params->get(CameraProperties::DENOISE_SUPPORTED), CameraParameters::TRUE) == 0)
+	params->set(CameraProperties::DENOISE_SUPPORTED, CameraParameters::FFALSE);
+	if(strcmp(params->get(CameraProperties::DENOISE_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 		params->set(CameraProperties::SUPPORTED_DENOISE_MIN, caps.xDeNoiseLevel.nMinVal);
 		params->set(CameraProperties::SUPPORTED_DENOISE_MAX, caps.xDeNoiseLevel.nMaxVal);
@@ -1429,7 +1429,7 @@ status_t OMXCameraAdapter::insertFlashModes(CameraProperties::Properties* params
     if(caps.ulFlashCount == 0 || (!flashSupported))
     {
         params->set(CameraProperties::SUPPORTED_FLASH_MODES, "");
-        params->set(CameraProperties::FLASH_SUPPORTED, CameraParameters::FALSE);
+        params->set(CameraProperties::FLASH_SUPPORTED, CameraParameters::FFALSE);
         
         goto EXIT;
     }
@@ -1446,7 +1446,7 @@ status_t OMXCameraAdapter::insertFlashModes(CameraProperties::Properties* params
 
     remove_last_sep(supported);
     params->set(CameraProperties::SUPPORTED_FLASH_MODES, supported);
-    params->set(CameraProperties::FLASH_SUPPORTED, CameraParameters::TRUE);
+    params->set(CameraProperties::FLASH_SUPPORTED, CameraParameters::TTRUE);
 EXIT:
     LOG_FUNCTION_NAME;
 
@@ -1516,11 +1516,11 @@ status_t OMXCameraAdapter::insertFocusModes(CameraProperties::Properties* params
 #ifdef CAMERA_FOCUS_MODE_INFINITY
         strncat(supported, CameraParameters::FOCUS_MODE_INFINITY, MAX_PROP_NAME_LENGTH);
 #endif
-        params->set(CameraProperties::FOCUS_SUPPORTED, CameraParameters::FALSE);
+        params->set(CameraProperties::FOCUS_SUPPORTED, CameraParameters::FFALSE);
     }
     else
     {
-        params->set(CameraProperties::FOCUS_SUPPORTED, CameraParameters::TRUE);
+        params->set(CameraProperties::FOCUS_SUPPORTED, CameraParameters::TTRUE);
         
     }
     remove_last_sep(supported);
@@ -1544,7 +1544,7 @@ status_t OMXCameraAdapter::insertFlickerModes(CameraProperties::Properties* para
 	if(caps.ulFlickerCount == 0)
 	{
         params->set(CameraProperties::SUPPORTED_ANTIBANDING, CameraParameters::ANTIBANDING_OFF);
-        params->set(CameraProperties::ANTIBANDING_SUPPORTED, CameraParameters::FALSE);
+        params->set(CameraProperties::ANTIBANDING_SUPPORTED, CameraParameters::FFALSE);
         goto EXIT;
     }
     for ( unsigned int i = 0 ; i < caps.ulFlickerCount; i++ )
@@ -1558,7 +1558,7 @@ status_t OMXCameraAdapter::insertFlickerModes(CameraProperties::Properties* para
     }
     remove_last_sep(supported);
     params->set(CameraProperties::SUPPORTED_ANTIBANDING, supported);
-    params->set(CameraProperties::ANTIBANDING_SUPPORTED, CameraParameters::TRUE);
+    params->set(CameraProperties::ANTIBANDING_SUPPORTED, CameraParameters::TTRUE);
 
 EXIT:
     LOG_FUNCTION_NAME;
@@ -1575,7 +1575,7 @@ status_t OMXCameraAdapter::insertISOModes(CameraProperties::Properties* params, 
     memset(supported, '\0', MAX_PROP_VALUE_LENGTH);
 	if(caps.bISONoiseFilterSupported == OMX_FALSE)
 	{
-        params->set(CameraProperties::ISO_SUPPORTED, CameraParameters::FALSE);
+        params->set(CameraProperties::ISO_SUPPORTED, CameraParameters::FFALSE);
 		params->set(CameraProperties::SUPPORTED_ISO_VALUES, ActCameraParameters::ISO_MODE_AUTO);
 	}
 	else
@@ -1589,7 +1589,7 @@ status_t OMXCameraAdapter::insertISOModes(CameraProperties::Properties* params, 
 	    } else {
 	        params->set(CameraProperties::SUPPORTED_ISO_VALUES, supported);
 	    }
-        params->set(CameraProperties::ISO_SUPPORTED, CameraParameters::TRUE);
+        params->set(CameraProperties::ISO_SUPPORTED, CameraParameters::TTRUE);
 	        CAMHAL_LOGEA("ISO_SUPPORTED is true");
 	}
 
@@ -1845,11 +1845,11 @@ status_t OMXCameraAdapter::insertDefaults(CameraProperties::Properties* params, 
     
     findBestFps(caps.tPrvVarFPSModes, caps.ulPrvVarFPSModesCount, fps, &defaultFpsMin, &defaultFpsMax, &defaultFps);
 
-    if(strcmp(params->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TRUE) != 0)
+    if(strcmp(params->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TTRUE) != 0)
     {
 	    params->set(CameraProperties::ISO_MODE, DEFAULT_ISO_MODE);
     }
-    if( strcmp(params->get(CameraProperties::ANTIBANDING_SUPPORTED), CameraParameters::TRUE) == 0)
+    if( strcmp(params->get(CameraProperties::ANTIBANDING_SUPPORTED), CameraParameters::TTRUE) == 0)
     { 
         params->set(CameraProperties::ANTIBANDING, DEFAULT_ANTIBANDING);
     }
@@ -1872,7 +1872,7 @@ status_t OMXCameraAdapter::insertDefaults(CameraProperties::Properties* params, 
     }
     params->set(CameraProperties::EXPOSURE_MODE, DEFAULT_EXPOSURE_MODE);
     params->set(CameraProperties::DENOISE, DEFAULT_DENOISE);
-	if(strcmp(params->get(CameraProperties::FLASH_SUPPORTED),CameraParameters::TRUE) == 0)
+	if(strcmp(params->get(CameraProperties::FLASH_SUPPORTED),CameraParameters::TTRUE) == 0)
 	{
 	    params->set(CameraProperties::FLASH_MODE, DEFAULT_FLASH_MODE);
 	}

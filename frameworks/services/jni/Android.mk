@@ -22,7 +22,7 @@ include $(CLEAR_VARS)
 
 # [optional, user, eng] 
 # eng = required
-# optinal = no install on target
+# optional = no install on target
 LOCAL_MODULE_TAGS := optional
 
 # This is the target being built.

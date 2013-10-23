@@ -48,8 +48,8 @@
 static int mDebugFps = 0;
 static int mDebugFcs = 0;
 
-#undef TRUE
-#undef FALSE
+#undef TTRUE
+#undef FFALSE
 
 #define HERE(Msg) {CAMHAL_LOGEB("--===line %d, %s===--\n", __LINE__, Msg);}
 
@@ -749,13 +749,13 @@ status_t OMXCameraAdapter::setParameters(const CameraParameters &params)
 
 
     valstr = params.get(CameraParameters::KEY_RECORDING_HINT);
-    if((valstr != NULL) && (strcmp(valstr, CameraParameters::TRUE) == 0))
+    if((valstr != NULL) && (strcmp(valstr, CameraParameters::TTRUE) == 0))
     {
         //recording
         if(mIternalRecordingHint != true)
         {
             mIternalRecordingHint = true;
-            if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TRUE) == 0)
+            if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TTRUE) == 0)
             {
                 mPending3Asettings |= SetFocus;
             }
@@ -767,7 +767,7 @@ status_t OMXCameraAdapter::setParameters(const CameraParameters &params)
         if(mIternalRecordingHint != false)
         {
             mIternalRecordingHint = false;
-            if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TRUE) == 0)
+            if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TTRUE) == 0)
             {
                 mPending3Asettings |= SetFocus;
             }
@@ -820,7 +820,7 @@ void OMXCameraAdapter::getParameters(CameraParameters& params)
     {
         params.set(CameraParameters::KEY_FLASH_MODE, valstr);
     }
-	if(strcmp(mCapabilities->get(CameraProperties::CameraProperties::FLASH_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::CameraProperties::FLASH_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         valstr = getLUTvalue_OMXtoHAL(mParameters3A.FlashMode, FlashLUT);
         valstr_supported = mParams.get(CameraParameters::KEY_SUPPORTED_FLASH_MODES);
@@ -835,7 +835,7 @@ void OMXCameraAdapter::getParameters(CameraParameters& params)
     {
         params.set(CameraParameters::KEY_FOCUS_MODE, valstr);
     }
-	if(strcmp(mCapabilities->get(CameraProperties::CameraProperties::FOCUS_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::CameraProperties::FOCUS_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         valstr_supported = mParams.get(CameraParameters::KEY_SUPPORTED_FOCUS_MODES);
         if (valstr && valstr_supported && strstr(valstr_supported, valstr))
@@ -843,7 +843,7 @@ void OMXCameraAdapter::getParameters(CameraParameters& params)
     }
 
 
-    if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 
         if ( ( AF_ACTIVE & state ) ||
@@ -918,23 +918,23 @@ void OMXCameraAdapter::getParameters(CameraParameters& params)
     if ( mParameters3A.ExposureLock )
     {
         params.set(CameraParameters::KEY_AUTO_EXPOSURE_LOCK,
-                   CameraParameters::TRUE);
+                   CameraParameters::TTRUE);
     }
     else
     {
         params.set(CameraParameters::KEY_AUTO_EXPOSURE_LOCK,
-                   CameraParameters::FALSE);
+                   CameraParameters::FFALSE);
     }
 
     if ( mParameters3A.WhiteBalanceLock )
     {
         params.set(CameraParameters::KEY_AUTO_WHITEBALANCE_LOCK,
-                   CameraParameters::TRUE);
+                   CameraParameters::TTRUE);
     }
     else
     {
         params.set(CameraParameters::KEY_AUTO_WHITEBALANCE_LOCK,
-                   CameraParameters::FALSE);
+                   CameraParameters::FFALSE);
     }
 
     LOG_FUNCTION_NAME_EXIT;

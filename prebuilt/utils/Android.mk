@@ -114,9 +114,9 @@ include $(BUILD_PREBUILT)
 
 #gralloc_HW
 include $(CLEAR_VARS)
-LOCAL_MODULE := gralloc.$(TARGET_BOARD_PLATFORM)
-LOCAL_SRC_FILES := gralloc.$(TARGET_BOARD_PLATFORM).so
-LOCAL_MODULE_STEM := gralloc.$(TARGET_BOARD_PLATFORM).so
+LOCAL_MODULE := gralloc.ATM702X
+LOCAL_SRC_FILES := gralloc.ATM702X.so
+LOCAL_MODULE_STEM := gralloc.ATM702X.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/hw
@@ -142,7 +142,7 @@ include $(BUILD_PREBUILT)
 #utils_prebuilt_target :=
 
 #if source code not available do prebuilt
-#ifneq ($(words $(shell find device/actions/gs702a/packages/OTA/Android.mk)),1)
+#ifneq ($(words $(shell find device/actions/packages/OTA/Android.mk)),1)
 #include $(CLEAR_VARS)
 #LOCAL_MODULE := update
 #LOCAL_MODULE_STEM := update.apk
@@ -169,11 +169,11 @@ include $(BUILD_PREBUILT)
 #endif
 
 #prebuilt libhwc 
-ifneq ($(words $(shell find device/actions/gs702a/hardware/libhwc/Android.mk)),1)
+ifneq ($(words $(shell find device/actions/hardware/libhwc/Android.mk)),1)
 include $(CLEAR_VARS)
-LOCAL_MODULE := hwcomposer.$(TARGET_BOARD_PLATFORM)
-LOCAL_SRC_FILES := $(LOCAL_MODULE).so
-LOCAL_MODULE_STEM := hwcomposer.$(TARGET_BOARD_PLATFORM).so
+LOCAL_MODULE := hwcomposer.ATM702X
+LOCAL_SRC_FILES := hwcomposer.ATM702X.so
+LOCAL_MODULE_STEM := hwcomposer.ATM702X.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/hw
@@ -183,7 +183,7 @@ utils_prebuilt_target += $(TARGET_OUT)/lib/hw/hwcomposer.ATM702X.so
 endif
 
 #prebuilt libperformance 
-ifneq ($(words $(shell find device/actions/gs702a/performancemanager/performanceservice/Android.mk)),1)
+ifneq ($(words $(shell find device/actions/performancemanager/performanceservice/Android.mk)),1)
 include $(CLEAR_VARS)
 LOCAL_MODULE := libperformance
 LOCAL_SRC_FILES := $(LOCAL_MODULE).so
@@ -197,7 +197,7 @@ utils_prebuilt_target += $(TARGET_OUT)/lib/libperformance.so
 endif
 
 #prebuilt performancepolicy 
-ifneq ($(words $(shell find device/actions/gs702a/performancemanager/performancepolicy/Android.mk)),1)
+ifneq ($(words $(shell find device/actions/performancemanager/performancepolicy/Android.mk)),1)
 include $(CLEAR_VARS)
 LOCAL_MODULE := performancepolicy
 LOCAL_MODULE_STEM := performancepolicy.apk
@@ -211,8 +211,8 @@ else
 utils_prebuilt_target += $(TARGET_OUT)/app/performancepolicy.apk
 endif
 
-#prebuilt performancepolicy 
-ifneq ($(words $(shell find device/actions/gs702a/packages/ActSensorCalib/Android.mk)),1)
+#prebuilt sensorcalib
+ifneq ($(words $(shell find device/actions/packages/ActSensorCalib/Android.mk)),1)
 include $(CLEAR_VARS)
 LOCAL_MODULE := ActSensorCalib
 LOCAL_MODULE_STEM := ActSensorCalib.apk

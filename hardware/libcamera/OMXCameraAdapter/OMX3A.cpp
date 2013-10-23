@@ -29,8 +29,8 @@
 
 
 
-#undef TRUE
-#undef FALSE
+#undef TTRUE
+#undef FFALSE
 
 
 #define METERING_AREAS_RANGE 0xFF
@@ -98,7 +98,7 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
             }
         }
     }
-    if(strcmp(mCapabilities->get(CameraProperties::CONTRAST_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::CONTRAST_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         if ( 0 <= params.getInt(ActCameraParameters::KEY_CONTRAST) )
         {
@@ -112,7 +112,7 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
             }
         }
     }
-    if(strcmp(mCapabilities->get(CameraProperties::SHARPNESS_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::SHARPNESS_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
 
         if ( 0 <= params.getInt(ActCameraParameters::KEY_SHARPNESS) )
@@ -127,7 +127,7 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
             }
         }
     }
-    if(strcmp(mCapabilities->get(CameraProperties::SATURATION_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::SATURATION_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         if ( 0 <= params.getInt(ActCameraParameters::KEY_SATURATION) )
         {
@@ -141,7 +141,7 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
             }
         }
     }
-    if(strcmp(mCapabilities->get(CameraProperties::BRIGHTNESS_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::BRIGHTNESS_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         if ( 0 <= params.getInt(ActCameraParameters::KEY_BRIGHTNESS) )
         {
@@ -156,7 +156,7 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
         }
     }
 
-    if(strcmp(mCapabilities->get(CameraProperties::DENOISE_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::DENOISE_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         if ( 0 <= params.getInt(ActCameraParameters::KEY_DENOISE) )
         {
@@ -172,7 +172,7 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
     }
 
 
-    if(strcmp(mCapabilities->get(CameraProperties::ANTIBANDING_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::ANTIBANDING_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         str = params.get(CameraParameters::KEY_ANTIBANDING);
         mode = getLUTvalue_HALtoOMX(str,FlickerLUT);
@@ -187,7 +187,7 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
         }
     }
 
-    if(strcmp(mCapabilities->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         str = params.get(ActCameraParameters::KEY_ISO);
         mode = getLUTvalue_HALtoOMX(str, IsoLUT);
@@ -203,7 +203,7 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
         }
     }
 
-    if((mParameters3A.SceneMode == OMX_ExposureControlAuto) && strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TRUE) == 0)
+    if((mParameters3A.SceneMode == OMX_ExposureControlAuto) && strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         str = params.get(CameraParameters::KEY_FOCUS_MODE);
         mode = getLUTvalue_HALtoOMX(str, FocusLUT);
@@ -230,7 +230,7 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
         mPending3Asettings |= SetEVCompensation;
     }
 
-    if((mParameters3A.SceneMode == OMX_ExposureControlAuto) && strcmp(mCapabilities->get(CameraProperties::CameraProperties::FLASH_SUPPORTED), CameraParameters::TRUE) == 0)
+    if((mParameters3A.SceneMode == OMX_ExposureControlAuto) && strcmp(mCapabilities->get(CameraProperties::CameraProperties::FLASH_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         str = params.get(CameraParameters::KEY_FLASH_MODE);
         mode = getLUTvalue_HALtoOMX( str, FlashLUT);
@@ -308,16 +308,16 @@ status_t OMXCameraAdapter::setParameters3A(const CameraParameters &params,
         }
     }
 
-    if(strcmp(mCapabilities->get(CameraProperties::AUTO_FOCUS_LOCK_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::AUTO_FOCUS_LOCK_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         str = params.get(ActCameraParameters::KEY_AUTO_FOCUS_LOCK);
-        if (str && (strcmp(str, CameraParameters::TRUE) == 0) && (mParameters3A.FocusLock != OMX_TRUE))
+        if (str && (strcmp(str, CameraParameters::TTRUE) == 0) && (mParameters3A.FocusLock != OMX_TRUE))
         {
             CAMHAL_LOGVA("Locking Focus");
             mParameters3A.FocusLock = OMX_TRUE;
             setFocusLock(mParameters3A);
         }
-        else if (str && (strcmp(str, CameraParameters::FALSE) == 0) && (mParameters3A.FocusLock != OMX_FALSE))
+        else if (str && (strcmp(str, CameraParameters::FFALSE) == 0) && (mParameters3A.FocusLock != OMX_FALSE))
         {
             CAMHAL_LOGVA("UnLocking Focus");
             mParameters3A.FocusLock = OMX_FALSE;
@@ -401,7 +401,7 @@ status_t OMXCameraAdapter::apply3ADefaults(Gen3A_settings &Gen3A)
     Gen3A.Effect = getLUTvalue_HALtoOMX(OMXCameraAdapter::DEFAULT_EFFECT, EffLUT);
     ret |= setEffect(Gen3A);
 	
-	if(strcmp(mCapabilities->get(CameraProperties::CameraProperties::FLASH_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::CameraProperties::FLASH_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
     	Gen3A.FlashMode = getLUTvalue_HALtoOMX(OMXCameraAdapter::DEFAULT_FLASH_MODE, FlashLUT);
     	ret |= setFlashMode(Gen3A);
@@ -414,43 +414,43 @@ status_t OMXCameraAdapter::apply3ADefaults(Gen3A_settings &Gen3A)
     ret |= setEVCompensation(Gen3A);
 
     Gen3A.Focus = getLUTvalue_HALtoOMX(OMXCameraAdapter::DEFAULT_FOCUS_MODE, FocusLUT);
-	if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
         ret |= setFocusMode(Gen3A);
     }
 
     Gen3A.ISO = getLUTvalue_HALtoOMX(OMXCameraAdapter::DEFAULT_ISO_MODE, IsoLUT);
-    if(strcmp(mCapabilities->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TRUE) == 0) 
+    if(strcmp(mCapabilities->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TTRUE) == 0) 
     {
         ret |= setISO(Gen3A);
     }
 
     Gen3A.Flicker = getLUTvalue_HALtoOMX(OMXCameraAdapter::DEFAULT_ANTIBANDING, FlickerLUT);
-	if(strcmp(mCapabilities->get(CameraProperties::ANTIBANDING_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::ANTIBANDING_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
         ret |= setFlicker(Gen3A);
     }
 
     Gen3A.Brightness = atoi(OMXCameraAdapter::DEFAULT_BRIGHTNESS);
-	if(strcmp(mCapabilities->get(CameraProperties::BRIGHTNESS_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::BRIGHTNESS_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 	    ret |= setBrightness(Gen3A);
 	}
 
     Gen3A.Saturation = atoi(OMXCameraAdapter::DEFAULT_SATURATION) - SATURATION_OFFSET;
-	if(strcmp(mCapabilities->get(CameraProperties::SATURATION_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::SATURATION_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 	    ret |= setSaturation(Gen3A);
 	}
 
     Gen3A.Sharpness = atoi(OMXCameraAdapter::DEFAULT_SHARPNESS) - SHARPNESS_OFFSET;
-	if(strcmp(mCapabilities->get(CameraProperties::SHARPNESS_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::SHARPNESS_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 	    ret |= setSharpness(Gen3A);
 	}
 
     Gen3A.Contrast = atoi(OMXCameraAdapter::DEFAULT_CONTRAST) - CONTRAST_OFFSET;
-	if(strcmp(mCapabilities->get(CameraProperties::CONTRAST_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::CONTRAST_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 	    ret |= setContrast(Gen3A);
 	}
@@ -459,19 +459,19 @@ status_t OMXCameraAdapter::apply3ADefaults(Gen3A_settings &Gen3A)
     ret |= setWBMode(Gen3A);
 
     Gen3A.ExposureLock = OMX_FALSE;
-	if(strcmp(mCapabilities->get(CameraProperties::AUTO_EXPOSURE_LOCK_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::AUTO_EXPOSURE_LOCK_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 	    ret |= setExposureLock(Gen3A);
 	}
 
     Gen3A.WhiteBalanceLock = OMX_FALSE;
-	if(strcmp(mCapabilities->get(CameraProperties::AUTO_WHITEBALANCE_LOCK), CameraParameters::TRUE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::AUTO_WHITEBALANCE_LOCK), CameraParameters::TTRUE) == 0)
 	{
 	    ret |= setWhiteBalanceLock(Gen3A);
 	}
 	
     Gen3A.Denoise= atoi(OMXCameraAdapter::DEFAULT_DENOISE) ;
-    if(strcmp(mCapabilities->get(CameraProperties::DENOISE_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCapabilities->get(CameraProperties::DENOISE_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
         ret |= setDenoise(Gen3A);
     }
@@ -1461,7 +1461,7 @@ status_t OMXCameraAdapter::set3ALock(OMX_BOOL toggleExp, OMX_BOOL toggleWb, OMX_
     }
     else
     {
-        const char *lock_state_exp = toggleExp ? CameraParameters::TRUE : CameraParameters::FALSE;
+        const char *lock_state_exp = toggleExp ? CameraParameters::TTRUE : CameraParameters::FFALSE;
 
         CAMHAL_LOGDA("Exposure Lock GetConfig successfull");
         value = (lock.eImageLock == OMX_IMAGE_LockOff)? OMX_FALSE: OMX_TRUE;
@@ -1510,7 +1510,7 @@ status_t OMXCameraAdapter::set3ALock(OMX_BOOL toggleExp, OMX_BOOL toggleWb, OMX_
     }
     else
     {
-        const char *lock_state_wb = toggleWb ? CameraParameters::TRUE : CameraParameters::FALSE;
+        const char *lock_state_wb = toggleWb ? CameraParameters::TTRUE : CameraParameters::FFALSE;
         CAMHAL_LOGDA("WhiteBalance Lock GetConfig successfull");
 
         /* Apply locks only when not applied already */

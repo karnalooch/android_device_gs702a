@@ -13,32 +13,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-PRODUCT_COPY_FILES += \
-	$(LOCAL_KERNEL):kernel \
-
-PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/etc/dev,root/dev)
-
-PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/etc/lib,root/lib)
-
-PRODUCT_COPY_FILES += \
-    device/actions/gs702a/rootdir/etc/apns-conf.xml:system/etc/apns-conf.xml \
-	device/actions/gs702a/rootdir/etc/init.gs702a.rc:root/init.gs702a.rc \
-	device/actions/gs702a/rootdir/etc/init.eth0.rc:root/init.eth0.rc \
-	device/actions/gs702a/rootdir/etc/init.gs702a.sdboot.rc:root/init.gs702a.sdboot.rc \
-	device/actions/gs702a/rootdir/etc/fstab.gs702a:root/fstab.gs702a \
-	device/actions/gs702a/rootdir/etc/fstab.sdboot.gs702a:root/fstab.sdboot.gs702a \
-	device/actions/gs702a/rootdir/etc/init.quickboot.rc:root/init.quickboot.rc \
-	device/actions/gs702a/rootdir/etc/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
-	device/actions/gs702a/rootdir/etc/ueventd.gs702a.rc:root/ueventd.gs702a.rc \
-	device/actions/gs702a/rootdir/etc/fstab.gs702a:system/etc/fstab.gs702a \
+PRODUCT_COPY_FILES := \
+	device/actions/gs702a/rootdir/init.gs702a.rc:root/init.gs702a.rc \
+	device/actions/gs702a/rootdir/init.gs702a.sdboot.rc:root/init.gs702a.sdboot.rc \
+	device/actions/gs702a/rootdir/fstab.gs702a:root/fstab.gs702a \
+	device/actions/gs702a/rootdir/fstab.sdboot.gs702a:root/fstab.sdboot.gs702a \
+	device/actions/gs702a/rootdir/init.quickboot.rc:root/init.quickboot.rc \
+	device/actions/gs702a/rootdir/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
+	device/actions/gs702a/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc \
+	device/actions/gs702a/rootdir/fstab.gs702a:system/etc/fstab.gs702a \
+    device/actions/gs702a/configs/apns-conf.xml:system/etc/apns-conf.xml \
 	device/actions/gs702a/configs/ft5x0x_ts.idc:system/usr/idc/ft5x0x_ts.idc \
 	device/actions/gs702a/configs/GT813.idc:system/usr/idc/GT813.idc \
 	device/actions/gs702a/configs/mt395.idc:system/usr/idc/mt395.idc \
 	device/actions/gs702a/configs/atc260x-adckeypad.kl:system/usr/keylayout/atc260x-adckeypad.kl \
 	device/actions/gs702a/configs/excluded-input-devices.xml:system/etc/excluded-input-devices.xml \
 	device/actions/gs702a/configs/packages-compat-default.xml:system/etc/packages-compat-default.xml \
+	device/actions/gs702a/configs/usbmond:system/bin/usbmond \
+	device/actions/gs702a/configs/boost.sh:system/bin/boosh.sh \
+	device/actions/gs702a/configs/init.d/80booster:system/etc/init.d/80booster \
+	device/actions/gs702a/configs/init.d/90userinit:system/etc/init.d/90userinit \
 	device/actions/gs702a/configs/builtinapk:system/etc/builtinapk \
 	device/actions/gs702a/configs/NOTICE.html:system/etc/NOTICE.html \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/extras/android.hardware.bluetooth.xml \
@@ -47,29 +41,17 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/tablet_core_hardware.xml:/system/etc/permissions/tablet_core_hardware.xml \
 	vendor/carbon/config/permissions/com.carbon.android.xml:/system/etc/permissions/com.carbon.android.xml \
 	vendor/carbon/config/permissions/com.carbon.nfc.enhanced.xml:/system/etc/permissions/com.carbon.nfc.enhanced.xml \
-	vendor/carbon/config/permissions/com.tmobile.software.themes.xml:/system/etc/permissions/com.tmobile.software.themes.xml
-
-# audio policy configuration
-PRODUCT_COPY_FILES += \
-	hardware/libhardware_legacy/audio/audio_policy.conf:/system/etc/audio_policy.conf
-	
-# FIXME init.rc doesn't run mkdir for system/vendor/app, so we use do this here using a dummy file
-PRODUCT_COPY_FILES += \
+	vendor/carbon/config/permissions/com.tmobile.software.themes.xml:/system/etc/permissions/com.tmobile.software.themes.xml \
+	hardware/libhardware_legacy/audio/audio_policy.conf:/system/etc/audio_policy.conf \
 	device/actions/gs702a/readme:system/vendor/app/readme
 
-PRODUCT_PACKAGES += \
-    make_ext4fs \
-	com.android.future.usb.accessory
-
 # Set default USB interface
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
 	persist.sys.usb.config=adb,mass_storage
 	
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_PROPERTY_OVERRIDES := \
+	wifi.interface=wlan0 \
 	hwui.render_dirty_regions=false
-
-PRODUCT_PACKAGES += \
-	com.android.future.usb.accessory
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.product.locale.language=en \
@@ -95,6 +77,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 DEVICE_PACKAGE_OVERLAYS := \
     device/actions/gs702a/overlay
+
+PRODUCT_PACKAGES := \
+    make_ext4fs \
+    librs_jni \
+	com.android.future.usb.accessory
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -133,7 +120,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	dosfslabel \
 	iostat
-	
+
 PRODUCT_PACKAGES += \
 	rild \
 	libactions-ril \
@@ -155,6 +142,7 @@ PRODUCT_PACKAGES += \
 	ActSensorCalib
 
 PRODUCT_PACKAGES += \
+    com.cyanogenmod.hardware \
 	init.superuser.rc
 
 PRODUCT_PACKAGES += \
@@ -247,7 +235,14 @@ PRODUCT_PACKAGES += \
 	libOMX.Action.Video.Decoder \
 	libstagefrighthw \
 	camera.ATM702X \
-	audio.r_submix.default
+    audio.r_submix.default
+
+PRODUCT_PACKAGES += \
+    libvideoeditor_jni \
+    libvideoeditor_core \
+    libvideoeditor_osal \
+    libvideoeditor_videofilters \
+    libvideoeditorplayer
 
 PRODUCT_PACKAGES += \
 	dhcpcd.conf \
@@ -260,18 +255,8 @@ PRODUCT_PACKAGES += \
 	wpa_supplicant \
 	wpa_supplicant.conf
 
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.sf.lcd_density=160
+
 $(call inherit-product, device/actions/gs702a/usb_modeswitch.d/usb_modeswitch.mk)
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
-
-PRODUCT_NAME := full_gs702a
-PRODUCT_DEVICE := gs702a
-
-TARGET_SCREEN_HEIGHT := 800
-TARGET_SCREEN_WIDTH := 1280
-
-PRODUCT_AAPT_CONFIG += large xlarge mdpi hdpi tvdpi
-PRODUCT_AAPT_PREF_CONFIG := xlarge
-
-PRODUCT_CHARACTERISTICS := tablet
-
-PRODUCT_TAGS += dalvik.gc.type-precise

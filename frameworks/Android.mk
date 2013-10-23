@@ -1,24 +1,24 @@
-#
-#
 LOCAL_PATH := $(call my-dir)
-
+# =============================================================
 include $(CLEAR_VARS)
-
 LOCAL_SRC_FILES := \
-		core/java/com/actions/hardware/DisplayManager.java \
-		core/java/com/actions/hardware/PerformanceManager.java \
+		$(call all-java-files-under, core) \
+		$(call all-java-files-under, services)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := actions
+#LOCAL_MODULE_PATH := $(TARGET_OUT_JAVA_LIBRARIES)
+
+#LOCAL_JAVA_LIBRARIES := services
+LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 
 # AIDL
-LOCAL_AIDL_INCLUDES += $(LOCAL_PATH)/core/java
+LOCAL_AIDL_INCLUDES +=$(LOCAL_PATH)/core/java
 LOCAL_SRC_FILES += \
-		core/java/com/actions/hardware/ICableStatusListener.aidl \
-		core/java/com/actions/hardware/IDisplayService.aidl \
-		core/java/com/actions/hardware/IPerformanceService.aidl
+	core/java/com/actions/hardware/ICableStatusListener.aidl \
+	core/java/com/actions/hardware/IDisplayService.aidl \
+	core/java/com/actions/hardware/IPerformanceService.aidl
 
-
-built_framework := $(call java-lib-deps,framework)
+framework_built := $(call java-lib-deps,framework)
 LOCAL_PRELINK_MODULE := false
 include $(BUILD_JAVA_LIBRARY)
 

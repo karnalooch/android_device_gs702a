@@ -300,12 +300,12 @@ int CameraHal::setParameters(const CameraParameters& params)
                 // make sure we support vstab...if we don't and application is trying to set
                 // vstab then return an error
                 if (strcmp(mCameraProperties->get(CameraProperties::VSTAB_SUPPORTED),
-                           CameraParameters::TRUE) == 0)
+                           CameraParameters::TTRUE) == 0)
                 {
                     CAMHAL_LOGDB("VSTAB %s",valstr);
                     mParameters.set(CameraParameters::KEY_VIDEO_STABILIZATION, valstr);
                 }
-                else if (strcmp(valstr, CameraParameters::TRUE) == 0)
+                else if (strcmp(valstr, CameraParameters::TTRUE) == 0)
                 {
                     CAMHAL_LOGEB("ERROR: Invalid VSTAB: %s", valstr);
                     return BAD_VALUE;
@@ -313,7 +313,7 @@ int CameraHal::setParameters(const CameraParameters& params)
                 else
                 {
                     mParameters.set(CameraParameters::KEY_VIDEO_STABILIZATION,
-                                    CameraParameters::FALSE);
+                                    CameraParameters::FFALSE);
                 }
             }
 
@@ -402,13 +402,13 @@ int CameraHal::setParameters(const CameraParameters& params)
         valstr = params.get(CameraParameters::KEY_RECORDING_HINT);
         if(valstr != NULL)
         {
-            if(strcmp(valstr, CameraParameters::TRUE) == 0)
+            if(strcmp(valstr, CameraParameters::TTRUE) == 0)
             {
                 CAMHAL_LOGDB("Recording Hint is set to %s", valstr);
                 mParameters.set(CameraParameters::KEY_RECORDING_HINT, valstr);
 
             }
-            else if(strcmp(valstr, CameraParameters::FALSE) == 0)
+            else if(strcmp(valstr, CameraParameters::FFALSE) == 0)
             {
                 CAMHAL_LOGDB("Recording Hint is set to %s", valstr);
                 mParameters.set(CameraParameters::KEY_RECORDING_HINT, valstr);
@@ -422,11 +422,11 @@ int CameraHal::setParameters(const CameraParameters& params)
         else
         {
             // This check is required in following case.
-            // If VideoRecording activity sets KEY_RECORDING_HINT to TRUE and
-            // ImageCapture activity doesnot set KEY_RECORDING_HINT to FALSE (i.e. simply NULL),
+            // If VideoRecording activity sets KEY_RECORDING_HINT to TTRUE and
+            // ImageCapture activity doesnot set KEY_RECORDING_HINT to FFALSE (i.e. simply NULL),
             // then Video Mode parameters may remain present in ImageCapture activity as well.
             CAMHAL_LOGDA("Recording Hint is set to NULL");
-            mParameters.set(CameraParameters::KEY_RECORDING_HINT, CameraParameters::FALSE);
+            mParameters.set(CameraParameters::KEY_RECORDING_HINT, CameraParameters::FFALSE);
         }
 
         if ((valstr = params.get(CameraParameters::KEY_FOCUS_MODE)) != NULL)
@@ -658,7 +658,7 @@ int CameraHal::setParameters(const CameraParameters& params)
             }
         }
 
-        if(strcmp(mCameraProperties->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TRUE) == 0)
+        if(strcmp(mCameraProperties->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TTRUE) == 0)
         {
             if ((valstr = params.get(ActCameraParameters::KEY_ISO)) != NULL) {
                 if (isParameterValid(valstr, mCameraProperties->get(CameraProperties::SUPPORTED_ISO_VALUES))) {
@@ -1981,7 +1981,7 @@ status_t CameraHal::cancelAutoFocus()
 
     if( NULL != mCameraAdapter )
     {
-        adapterParams.set(ActCameraParameters::KEY_AUTO_FOCUS_LOCK, CameraParameters::FALSE);
+        adapterParams.set(ActCameraParameters::KEY_AUTO_FOCUS_LOCK, CameraParameters::FFALSE);
         mCameraAdapter->setParameters(adapterParams);
         mCameraAdapter->sendCommand(CameraAdapter::CAMERA_CANCEL_AUTOFOCUS);
         mAppCallbackNotifier->flushEventQueue();
@@ -2883,7 +2883,7 @@ void CameraHal::insertSupportedParams()
     p.set(CameraParameters::KEY_SUPPORTED_WHITE_BALANCE, mCameraProperties->get(CameraProperties::SUPPORTED_WHITE_BALANCE));
     p.set(CameraParameters::KEY_SUPPORTED_EFFECTS, mCameraProperties->get(CameraProperties::SUPPORTED_EFFECTS));
     p.set(CameraParameters::KEY_SUPPORTED_SCENE_MODES, mCameraProperties->get(CameraProperties::SUPPORTED_SCENE_MODES));
-    if(strcmp(mCameraProperties->get(CameraProperties::FLASH_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCameraProperties->get(CameraProperties::FLASH_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         p.set(CameraParameters::KEY_SUPPORTED_FLASH_MODES, mCameraProperties->get(CameraProperties::SUPPORTED_FLASH_MODES));
     }
@@ -2893,7 +2893,7 @@ void CameraHal::insertSupportedParams()
     p.set(CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, mCameraProperties->get(CameraProperties::SUPPORTED_EV_MIN));
     p.set(CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, mCameraProperties->get(CameraProperties::SUPPORTED_EV_STEP));
     p.set(CameraParameters::KEY_SUPPORTED_SCENE_MODES, mCameraProperties->get(CameraProperties::SUPPORTED_SCENE_MODES));
-    if(strcmp(mCameraProperties->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCameraProperties->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         p.set(ActCameraParameters::KEY_SUPPORTED_ISO_VALUES, mCameraProperties->get(CameraProperties::SUPPORTED_ISO_VALUES));
     }
@@ -2970,19 +2970,19 @@ void CameraHal::initDefaultParameters()
     p.set(CameraParameters::KEY_WHITE_BALANCE, mCameraProperties->get(CameraProperties::WHITEBALANCE));
     p.set(CameraParameters::KEY_EFFECT,  mCameraProperties->get(CameraProperties::EFFECT));
     p.set(CameraParameters::KEY_ANTIBANDING, mCameraProperties->get(CameraProperties::ANTIBANDING));
-    if(strcmp(mCameraProperties->get(CameraProperties::FLASH_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCameraProperties->get(CameraProperties::FLASH_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         p.set(CameraParameters::KEY_FLASH_MODE, mCameraProperties->get(CameraProperties::FLASH_MODE));
     }
     p.set(CameraParameters::KEY_FOCUS_MODE, mCameraProperties->get(CameraProperties::FOCUS_MODE));
     p.set(CameraParameters::KEY_EXPOSURE_COMPENSATION, mCameraProperties->get(CameraProperties::EV_COMPENSATION));
-    if(strcmp(mCameraProperties->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TRUE) == 0)
+    if(strcmp(mCameraProperties->get(CameraProperties::ISO_SUPPORTED), CameraParameters::TTRUE) == 0)
     {
         p.set(ActCameraParameters::KEY_ISO, mCameraProperties->get(CameraProperties::ISO_MODE));
     }
     p.set(CameraParameters::KEY_SCENE_MODE, mCameraProperties->get(CameraProperties::SCENE_MODE));
     p.set(CameraParameters::KEY_ZOOM, mCameraProperties->get(CameraProperties::ZOOM));
-	if(strcmp(mCameraProperties->get(CameraProperties::CONTRAST_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCameraProperties->get(CameraProperties::CONTRAST_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 	    p.set(ActCameraParameters::KEY_CONTRAST, mCameraProperties->get(CameraProperties::CONTRAST));
 
@@ -2990,7 +2990,7 @@ void CameraHal::initDefaultParameters()
 		p.set(ActCameraParameters::KEY_MAX_CONTRAST, mCameraProperties->get(CameraProperties::SUPPORTED_CONTRAST_MAX));
 		p.set(ActCameraParameters::KEY_CONTRAST_STEP, mCameraProperties->get(CameraProperties::SUPPORTED_CONTRAST_STEP));
 	}
-	if(strcmp(mCameraProperties->get(CameraProperties::SATURATION_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCameraProperties->get(CameraProperties::SATURATION_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 	    p.set(ActCameraParameters::KEY_SATURATION, mCameraProperties->get(CameraProperties::SATURATION));
 
@@ -2998,7 +2998,7 @@ void CameraHal::initDefaultParameters()
 		p.set(ActCameraParameters::KEY_MAX_SATURATION, mCameraProperties->get(CameraProperties::SUPPORTED_SATURATION_MAX));
 		p.set(ActCameraParameters::KEY_SATURATION_STEP, mCameraProperties->get(CameraProperties::SUPPORTED_SATURATION_STEP));
 	}
-	if(strcmp(mCameraProperties->get(CameraProperties::BRIGHTNESS_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCameraProperties->get(CameraProperties::BRIGHTNESS_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 	    p.set(ActCameraParameters::KEY_BRIGHTNESS, mCameraProperties->get(CameraProperties::BRIGHTNESS));
 
@@ -3007,7 +3007,7 @@ void CameraHal::initDefaultParameters()
 		p.set(ActCameraParameters::KEY_BRIGHTNESS_STEP, mCameraProperties->get(CameraProperties::SUPPORTED_BRIGHTNESS_STEP));
 	}
 
-	if(strcmp(mCameraProperties->get(CameraProperties::DENOISE_SUPPORTED), CameraParameters::TRUE) == 0)
+	if(strcmp(mCameraProperties->get(CameraProperties::DENOISE_SUPPORTED), CameraParameters::TTRUE) == 0)
 	{
 	    p.set(ActCameraParameters::KEY_DENOISE, mCameraProperties->get(CameraProperties::DENOISE));
         p.set(ActCameraParameters::KEY_MIN_DENOISE, mCameraProperties->get(CameraProperties::SUPPORTED_DENOISE_MIN));
@@ -3035,7 +3035,7 @@ void CameraHal::initDefaultParameters()
     p.set(CameraParameters::KEY_AUTO_WHITEBALANCE_LOCK, mCameraProperties->get(CameraProperties::AUTO_WHITEBALANCE_LOCK));
     p.set(CameraParameters::KEY_MAX_NUM_METERING_AREAS, mCameraProperties->get(CameraProperties::MAX_NUM_METERING_AREAS));
 
-    p.set(CameraParameters::KEY_RECORDING_HINT, CameraParameters::FALSE);
+    p.set(CameraParameters::KEY_RECORDING_HINT, CameraParameters::FFALSE);
     LOG_FUNCTION_NAME_EXIT;
 }
 

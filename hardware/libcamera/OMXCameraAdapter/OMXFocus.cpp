@@ -31,8 +31,8 @@
 
 #define AF_TIMEOUT 5000000 //5 seconds timeout
 
-#undef TRUE
-#undef FALSE
+#undef TTRUE
+#undef FFALSE
 
 namespace android
 {
@@ -88,7 +88,7 @@ status_t OMXCameraAdapter::doAutoFocus()
     status_t ret = NO_ERROR;
 
     LOG_FUNCTION_NAME;
-	if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::FALSE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::FFALSE) == 0)
 	{
         returnFocusStatus(CameraHalEvent::FOCUS_STATUS_SUCCESS);
         return NO_ERROR;
@@ -352,7 +352,7 @@ status_t OMXCameraAdapter::checkFocusStatus()
     {
         return NO_ERROR;
     }
-	if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::FALSE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::FFALSE) == 0)
     {
         return NO_ERROR;
     }
@@ -663,7 +663,7 @@ status_t OMXCameraAdapter::setTouchFocus()
     unsigned int dataLen = 0;
 
     LOG_FUNCTION_NAME;
-	if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::FALSE) == 0)
+	if(strcmp(mCapabilities->get(CameraProperties::FOCUS_SUPPORTED), CameraParameters::FFALSE) == 0)
     {
         return NO_ERROR;
     }

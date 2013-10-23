@@ -16,7 +16,7 @@
 
 # Arch vars
 TARGET_BOARD_PLATFORM := ATM702X
-TARGET_BOARD_PLATFORM_GPU := VIVANTE
+#TARGET_BOARD_PLATFORM_GPU := VIVANTE
 TARGET_ARCH := arm
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -34,12 +34,12 @@ ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
 DEVICE_PACKAGE_OVERLAYS += device/actions/gs702a/overlay
 
 # Use the non-open-source parts, if they're present
--include vendor/actions/gs702a/BoardConfigVendor.mk
+#-include vendor/actions/gs702a/BoardConfigVendor.mk
 
 BOARD_USES_GENERIC_AUDIO := true
 USE_CAMERA_STUB := true
 TARGET_BOOTLOADER_BOARD_NAME := full_gs702a
-TARGET_NO_BOOTLOADER := false
+TARGET_NO_BOOTLOADER := true
 TARGET_NO_RECOVERY := false
 TARGET_NO_RADIOIMAGE := true
 
@@ -58,6 +58,9 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR=device/generic/common/bluetooth
 BOARD_EGL_CFG := device/actions/gs702a/configs/egl.cfg
 TARGET_BOARD_INFO_FILE := device/actions/gs702a/board-info.txt
 
+# CMHW Abstraction
+BOARD_HARDWARE_CLASS := device/actions/gs702a/cmhw
+
 # Board
 BOARD_USES_HGL := true
 BOARD_USES_OVERLAY := true
@@ -75,12 +78,11 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 536870912
 BOARD_FLASH_BLOCK_SIZE := 4096
 
-
 DEVICE_RESOLUTION := 1280x800
 TARGET_PROVIDES_INIT_RC := true
 
 # Toolchain
-TARGET_GCC_VERSION := 4.7
+TARGET_GCC_VERSION := 4.8
 TARGET_TOOLS_PREFIX :=
 TARGET_GLOBAL_CFLAGS += -O3
 TARGET_GLOBAL_CPPFLAGS += -O3
@@ -89,7 +91,7 @@ TARGET_GLOBAL_CPPFLAGS += -O3
 #TARGET_RECOVERY_INITRC := device/actions/gs702a/init.recovery.gs702a.rc
 #TARGET_PREBUILT_RECOVERY_KERNEL := device/actions/gs702a/recovery-kernel
 BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_RECOVERY_FSTAB := device/actions/gs702a/rootdir/etc/fstab.gs702a
+TARGET_RECOVERY_FSTAB := device/actions/gs702a/rootdir/fstab.gs702a
 RECOVERY_FSTAB_VERSION := 2
 
 # Bootanimation
@@ -112,11 +114,11 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_rtl
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_rtl
 
-BOARD_WLAN_VENDOR := REALTEK
+#BOARD_WLAN_VENDOR := REALTEK
 BOARD_WIFI_VENDOR := realtek
 BOARD_WLAN_DEVICE := rtl8188eu
 
-TARGET_CUSTOM_WIFI := hardware/act/gs702a/wlan/rtl8188eu/libhardware_legacy/wifi/wifi_realtek.c
+TARGET_CUSTOM_WIFI := device/actions/gs702a/hardware/wlan/rtl8188eu/libhardware_legacy/wifi/wifi_realtek.c
 
 #-include device/actions/gs702a/wifi/wifi.mk
 
@@ -127,3 +129,10 @@ COMMON_GLOBAL_CFLAGS += -DACT_HARDWARE -DCHARGER_DISABLE_INIT_BLANK -DACT_GRLC -
 TARGET_DEVICE := gs702a
 #TARGET_DEVICE := venus2
 #TARGET_DEVICE := crystal2
+
+# Selinux policies
+BOARD_SEPOLICY_DIRS := \
+	device/actions/gs702a/selinux
+
+BOARD_SEPOLICY_UNION := \
+	file_contexts
